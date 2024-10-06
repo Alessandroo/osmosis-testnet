@@ -27,7 +27,7 @@ edit_genesis () {
 
     # Update staking module
     dasel put -t string -f $GENESIS '.app_state.staking.params.bond_denom' -v 'uosmo'
-    dasel put -t string -f $GENESIS '.app_state.staking.params.unbonding_time' -v '240s'
+    dasel put -t string -f $GENESIS '.app_state.staking.params.unbonding_time' -v '1209600s'
 
     # Update crisis module
     dasel put -t string -f $GENESIS '.app_state.crisis.constant_fee.denom' -v 'uosmo'
@@ -38,6 +38,9 @@ edit_genesis () {
 
     # Update epochs module
     dasel put -t string -f $GENESIS '.app_state.epochs.epochs.[1].duration' -v "60s"
+
+    dasel put -t string -f $GENESIS '.app_state.interchainquery.params.allow_queries.[]' -v "/cosmos.bank.v1beta1.Query/Balance"
+    dasel put -t string -f $GENESIS '.app_state.interchainquery.params.allow_queries.[]' -v "/cosmos.bank.v1beta1.Query/AllBalances"
 
     # Update poolincentives module
     dasel put -t string -f $GENESIS '.app_state.poolincentives.lockable_durations.[0]' -v "120s"
